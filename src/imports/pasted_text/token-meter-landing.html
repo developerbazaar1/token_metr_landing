@@ -1,0 +1,433 @@
+Design a modern, production-ready landing page for "TokenMetr" — a Chrome extension that 
+shows AI token count, cost estimate, and an optimized version of your prompt before you hit 
+send inside ChatGPT, Claude, Gemini, and Perplexity. Average result: 63% fewer tokens, 
+64% lower cost, same output.
+
+---
+
+BRAND & TONE
+The product solves a real cost and governance problem for teams spending $3K–$15K/month on 
+AI APIs. The tone is: precise, warm, no-nonsense. Not a flashy AI startup. A tool that 
+does a real job. Think Linear meets Raycast — clean, fast, purposeful.
+
+---
+
+COLOR PALETTE (extracted from logo — use these exact values)
+
+Primary Orange:     #E87722   — CTAs, accents, highlights, active states
+Warm Amber:         #F5A53A   — Hover states, secondary highlights, gradient pair
+Dark Charcoal:      #1A1A1A   — Primary headings, nav text
+Soft Charcoal:      #2D2D2D   — Body text, card content
+Muted Gray:         #6B7280   — Secondary text, captions, labels
+Light Gray:         #F4F4F2   — Section backgrounds, alternating bg, input fields
+Warm White:         #FDFCFA   — Primary page background (not pure white — has warmth)
+Card White:         #FFFFFF   — Cards, modals, extension demo UI
+Stroke/Border:      #E5E3DF   — Card borders, dividers, subtle separators
+Success Green:      #22C55E   — Savings indicators, "optimized" badge, checkmarks
+Danger Hint:        #EF4444   — High token count warnings (used sparingly)
+Dark Navy (text on orange): #1A1A1A
+
+GRADIENT: Linear from #E87722 → #F5A53A at 135deg — use only on hero CTA button, 
+hero section accent, and section highlight borders. Not overused.
+
+---
+
+TYPOGRAPHY
+
+Display / Hero Heading: "Sora" — bold weight (700), very large (64–80px desktop), 
+tight line height (1.05), letter-spacing -0.02em. Dark charcoal on light sections.
+
+Section Headings (H2): "Sora" — semibold (600), 40–48px, line height 1.15
+
+Body / UI Text: "DM Sans" — regular (400), 16–18px, line height 1.7, color #2D2D2D
+
+Monospace (token counts, code snippets): "JetBrains Mono" — 14px, color #E87722 on 
+light backgrounds. Used inside the extension demo UI element.
+
+Caption / Labels: "DM Sans" — 13px, #6B7280, letter-spacing 0.02em, uppercase for 
+section labels (e.g. "FEATURES", "PRICING", "HOW IT WORKS")
+
+---
+
+PAGE LAYOUT — FULL SECTION BREAKDOWN
+
+Canvas: 1440px wide desktop. Also design mobile breakpoint at 390px.
+Spacing system: 8px base unit. Section padding: 120px vertical desktop, 64px mobile.
+
+---
+
+SECTION 1 — STICKY NAVIGATION BAR
+
+Height: 64px. Background: #FDFCFA with 1px bottom border #E5E3DF.
+Blur backdrop on scroll: backdrop-filter blur(8px), bg opacity 90%.
+
+Left: TokenMetr logo (icon + wordmark — import from brand assets).
+Center: Nav links — "Features", "For Teams", "Pricing", "How it Works" 
+  in DM Sans 15px, #6B7280, hover: #1A1A1A, no underline.
+Right: Two elements:
+  — "Sign in" text link, #6B7280, 14px
+  — Primary CTA button: "Add to Chrome — Free" 
+    Background: #E87722, text: white, font: DM Sans 15px 600, 
+    border-radius: 8px, padding: 10px 20px, 
+    hover: slight darken to #D06515, subtle shadow lift.
+
+---
+
+SECTION 2 — HERO
+
+Full-width, background: #FDFCFA. Min height: 100vh. 
+Centered layout, max-width 800px text column.
+
+Top label (eyebrow text): Small pill badge — background #FEF3E8, 
+border 1px #F5A53A, text "#E87722 · Chrome Extension · Free to install" 
+in DM Sans 12px. Rounded-full. Centered above heading.
+
+Main Heading (2 lines):
+Line 1: "You're paying 3×"
+Line 2: "more for AI than you should."
+Font: Sora 72px bold, line height 1.05, color #1A1A1A.
+The "3×" should be in #E87722 (orange accent).
+
+Subheading below (1 line):
+"TokenMetr shows your token count and an optimized prompt — before you hit send."
+DM Sans 20px, #6B7280, line height 1.6, max-width 560px centered.
+
+Two CTAs in a row, centered, 16px gap:
+— Primary: "Add to Chrome — Free" button, gradient bg #E87722 → #F5A53A, 
+  white text, DM Sans 600 16px, border-radius 10px, padding 14px 28px,
+  hover: slight shadow lift + scale(1.02), transition 200ms ease.
+— Secondary: "See how it works for teams →" text link, #E87722, DM Sans 600 16px, 
+  underline on hover.
+
+HERO DEMO VISUAL (centerpiece, below CTAs):
+A floating UI card (box-shadow: 0 24px 64px rgba(0,0,0,0.10), border-radius 16px).
+It simulates the TokenMetr extension overlaid on a ChatGPT-like prompt input.
+
+Inside the card show two states side by side:
+LEFT panel (labeled "Your prompt" in 12px muted label):
+  — Gray textarea with a long, bloated example prompt 
+    (e.g., "Hi there! I just wanted to ask you a question about something I was 
+    wondering about. Could you please help me understand...")
+  — Token count badge bottom-right of textarea: "847 tokens · $0.017" in red-tinted badge.
+
+RIGHT panel (labeled "Optimized by TokenMetr" in 12px green label):
+  — Same textarea but with a tighter, cleaner version of the prompt.
+  — Token count badge: "312 tokens · $0.006" in green badge.
+  — Small orange "TokenMetr" logo watermark bottom right.
+
+Between the two panels: an animated orange arrow icon →
+
+Below the card, three micro-stats in a row:
+"63% fewer tokens" · "64% lower cost" · "Works in ChatGPT, Claude, Gemini, Perplexity"
+Each in DM Sans 13px, #6B7280, separated by · dividers.
+
+---
+
+SECTION 3 — SOCIAL PROOF STRIP
+
+Slim horizontal strip, background #F4F4F2, border-top and bottom #E5E3DF, padding 24px.
+
+Left text: "Trusted by teams using" in DM Sans 14px #6B7280.
+Right: three stat pills in a row:
+  "38 teams in beta"  |  "63% avg token reduction"  |  "4 AI platforms supported"
+Each pill: background white, border 1px #E5E3DF, border-radius 20px, 
+padding 8px 16px, DM Sans 14px #2D2D2D.
+
+---
+
+SECTION 4 — THE PROBLEM
+
+Background: #FDFCFA. Section label: "THE PROBLEM" in 12px uppercase, orange #E87722, 
+letter-spacing 0.1em. Centered.
+
+Heading: "Your AI bill is growing. Nobody knows why."
+Sora 48px semibold, #1A1A1A, centered, max-width 640px.
+
+Below: A realistic narrative block:
+Styled like a terminal / finance dashboard snippet:
+Dark card (background #1A1A1A, border-radius 12px, padding 24px 32px, max-width 700px centered)
+Inside: monospace font, orange accent for numbers, showing:
+  
+  Team: Engineering (12 members)
+  AI prompts sent this month:   9,847
+  Avg tokens per prompt:        1,240
+  Wasted tokens (est.):         68%
+  Estimated monthly overspend:  $1,247
+  Visibility into spend:        None
+
+This "dashboard of pain" visual does the emotional work.
+
+Below the dark card, three problem cards in a row (grid 3-col):
+Each card: white background, 1px border #E5E3DF, border-radius 12px, padding 28px.
+
+Card 1 — Token Waste:
+  Icon: gauge/meter icon (matches logo), color #E87722.
+  Title: "~70% of tokens are wasted" (Sora 18px semibold)
+  Body: "Most prompts are 3× longer than they need to be — same output, triple the cost." 
+  (DM Sans 15px #6B7280)
+
+Card 2 — Zero Visibility:
+  Icon: eye-off icon, color #E87722.
+  Title: "Finance has no idea what AI costs"
+  Body: "Employees use personal ChatGPT logins. There's no dashboard, no controls, 
+  no budget line." 
+
+Card 3 — Quality Drag:
+  Icon: message-x icon, color #E87722.
+  Title: "Bad prompts → weak outputs"
+  Body: "Bloated, unstructured prompts return weak answers. Teams blame the AI — 
+  it's the prompt."
+
+---
+
+SECTION 5 — HOW IT WORKS
+
+Background: #F4F4F2. Three-step horizontal flow.
+
+Section label: "HOW IT WORKS"
+Heading: "From bloated to brilliant — before you send."
+
+Step cards in a row of 3, connected with dotted orange line between them.
+Each step card: white bg, 1px border, border-radius 12px, padding 32px.
+  Step number: Large "01" / "02" / "03" in Sora 48px, #F5A53A (light amber), 
+  top-left of card. Decorative, not dominant.
+  
+  Step 1: "Start typing your prompt"
+  Visual: Small ChatGPT-like textarea with a TokenMetr badge appearing — 
+  showing live "847 tokens · $0.017" counter in orange.
+  
+  Step 2: "See the optimized version instantly"
+  Visual: Side-by-side before/after within the card. Arrow between them.
+  Savings badge: "-63% tokens" in green pill.
+  
+  Step 3: "Send smarter. Save real money."
+  Visual: Simple savings counter "This month: $247 saved" in a clean stat card.
+  Below: small team dashboard thumbnail showing governance view.
+
+---
+
+SECTION 6 — LIVE DEMO CALLOUT
+
+Full-width section, background gradient: #E87722 → #F5A53A (the one place to use 
+the full gradient as a background — make it count).
+
+Text color: white throughout this section.
+Centered text block:
+
+Heading: "Try it right here — no install needed."
+Sora 42px bold, white.
+
+Sub: "Paste any AI prompt. Watch TokenMetr compress it live."
+DM Sans 18px, white 80% opacity.
+
+Below: A white-bg card (box-shadow prominent, border-radius 16px, padding 32px).
+Inside: 
+  — Large textarea placeholder: "Paste your prompt here..."
+    DM Sans 15px, placeholder text #9CA3AF.
+  — Below the textarea: "Optimize →" button in #E87722, white text, border-radius 8px.
+  — Results area (shown after optimization): 
+    Two columns — original vs optimized, with token count badges and savings %.
+
+Note: This section uses a live API call in production. In Figma, show the 
+"result state" with a sample optimization already complete.
+
+---
+
+SECTION 7 — FEATURES (DUAL TRACK)
+
+Background: #FDFCFA.
+Section label: "FEATURES"
+Heading: "Built for you. And your whole team."
+
+Toggle tabs centered: "For Individuals" | "For Teams"
+Tab style: pill toggle, selected tab: bg #E87722, white text; unselected: bg transparent, 
+text #6B7280, border 1px #E5E3DF. Border-radius 999px on container.
+
+INDIVIDUALS tab content (4 features in 2×2 grid):
+Each feature tile: white card, 1px border, border-radius 12px, padding 24px.
+  — Real-time token counter (icon: counter/hash)
+  — Optimized prompt suggestion (icon: sparkle/wand)
+  — Per-model cost estimator (icon: calculator)
+  — Prompt savings history (icon: chart-line)
+
+TEAMS tab content (4 features in 2×2 grid):
+  — Admin governance dashboard (icon: shield)
+  — Per-team usage limits + alerts (icon: bell)
+  — Spend visibility for finance (icon: currency)
+  — CSV export + reporting (icon: download)
+
+Below the grid, platform logos strip:
+"Works inside:" → ChatGPT logo · Claude logo · Gemini logo · Perplexity logo · Copilot logo
+All logos in grayscale, 32px height, gap 32px. Hover: full color.
+
+---
+
+SECTION 8 — NUMBERS / METRICS
+
+Background: #1A1A1A (dark section — contrast moment).
+Text: white.
+
+Section label: "RESULTS" in orange.
+Heading: "The numbers don't lie." in Sora 48px white.
+
+4 large stat cards in a row:
+Each: background #2D2D2D, border-radius 12px, padding 32px, no border.
+
+  Stat 1: "63%" — "average token reduction"
+  Stat 2: "64%" — "lower cost per prompt"
+  Stat 3: "4"   — "AI platforms supported"
+  Stat 4: "38+" — "teams in beta"
+
+Stat number: Sora 72px bold, color #E87722.
+Stat label: DM Sans 14px, #9CA3AF.
+
+Below stats, a quote-style callout:
+"First enterprise deployment: 80 seats — before public launch."
+Centered, DM Sans 18px italic, white 70% opacity. Left orange 4px border accent.
+
+---
+
+SECTION 9 — PRICING
+
+Background: #F4F4F2.
+Heading: "Simple pricing. No surprises."
+
+Three pricing cards in a row. Middle card (Pro) is elevated — slightly larger, 
+box-shadow, orange top border 3px, "Most Popular" badge in orange.
+
+FREE card: White bg, 1px border, border-radius 16px.
+  Price: ₹0 / forever (or $0)
+  Features list (4 items with checkmarks): 5 checks/day, token estimation, 
+  basic suggestions, single user.
+  CTA: "Add to Chrome" — outline button, border #E87722, text #E87722.
+
+PRO card (elevated, featured): White bg, box-shadow, orange top border.
+  "Most Popular" badge in orange.
+  Price: ₹299/mo (show USD equivalent small below)
+  Features list (6 items): Unlimited checks, full optimization, cost estimator, 
+  meaning preservation, savings history, priority support.
+  CTA: "Start Free Trial" — filled orange button.
+
+ENTERPRISE card: White bg, 1px border, border-radius 16px.
+  Price: Custom per seat
+  Features list: Everything in Pro + admin dashboard, governance controls, 
+  team analytics, SLA, CSV export, onboarding support.
+  CTA: "Talk to Us" — dark filled button #1A1A1A.
+
+Below pricing table, one honest line in DM Sans 14px #6B7280 italic centered:
+"This is our learning pricing — we update it based on what we learn from customers."
+
+---
+
+SECTION 10 — COMPARISON TABLE
+
+Background: #FDFCFA.
+Heading: "Why TokenMetr — and not everything else."
+
+Clean table, max-width 800px centered.
+Columns: Feature | TokenMetr | Helicone | LangSmith | Nothing (manual)
+Rows: Token counting · Pre-send optimization · Cross-platform · Team governance 
+  · Cost dashboard · Browser-native
+
+TokenMetr column: orange header bg tint #FEF3E8, check icons in green #22C55E.
+Others: neutral. ✗ icons in #EF4444.
+
+Key row to highlight visually: "Pre-send optimization" — 
+add a light orange left-border accent on this row and a small tooltip: 
+"Only TokenMetr prevents waste before it happens."
+
+---
+
+SECTION 11 — TESTIMONIALS
+
+Background: #F4F4F2.
+Heading: "What our beta users say."
+
+3 quote cards in a row. Each: white bg, 1px border, border-radius 12px, padding 28px.
+Each card has: large " opening quote in orange, testimonial text in DM Sans 16px, 
+and attribution below (name, role, company — with "Beta User" tag in small pill).
+
+---
+
+SECTION 12 — FAQ
+
+Background: #FDFCFA.
+Heading: "Questions we actually get asked."
+
+Accordion style. 6 questions. Each row: 1px bottom border, question in DM Sans 17px 
+semibold #1A1A1A, expand icon → chevron right, rotates on open.
+
+Priority question (shown open by default):
+"Does TokenMetr read or store my prompts?"
+Answer: Address privacy directly and clearly.
+
+Other questions in order:
+— Does it slow down my browser?
+— What if the optimized prompt changes my meaning?
+— Does it work on enterprise ChatGPT/Claude deployments?
+— How is this different from just writing shorter prompts?
+— What platforms does it work on?
+
+---
+
+SECTION 13 — FINAL CTA
+
+Full-width, background #1A1A1A. Centered. Minimal. High contrast.
+Padding: 120px vertical.
+
+Eyebrow: "Start free today" in #E87722 14px uppercase.
+Heading: "Your team is spending more on AI than you know."
+Sora 56px bold, white, max-width 700px centered.
+
+Two CTAs:
+— Primary: "Add to Chrome — Free" orange gradient button, large (padding 16px 36px).
+— Secondary: "For enterprise deployments, talk to us →" — white text link.
+
+Small muted line below: "No credit card. No account needed. Works in 60 seconds."
+DM Sans 14px, white 40% opacity.
+
+---
+
+SECTION 14 — FOOTER
+
+Background: #1A1A1A (continuous with CTA or subtle separator line).
+4 columns: 
+  Col 1: Logo + tagline "Token optimization & governance for AI teams." + 
+  "Built by Developer Bazaar Technologies, Indore, India."
+  Col 2: Product — Features, Pricing, How it Works, Chrome Store
+  Col 3: Company — About, Contact, Privacy Policy, Terms
+  Col 4: Platforms — ChatGPT, Claude, Gemini, Perplexity, Copilot
+
+Bottom strip: "© 2026 TokenMetr · Developer Bazaar Technologies" left. 
+Social icons right (X/Twitter, LinkedIn). DM Sans 13px, white 40% opacity.
+
+---
+
+DESIGN PRINCIPLES SUMMARY
+
+1. Orange is used precisely — CTAs, key numbers, active states, accents. 
+   Not splashed everywhere.
+2. Dark sections (#1A1A1A) appear exactly twice: Metrics and Final CTA. 
+   Creates contrast rhythm.
+3. The page alternates: warm-white → light-gray → warm-white → orange-section → etc.
+   Never two dark sections adjacent.
+4. Every section has ONE job. No combined messaging.
+5. Mobile: stack all grids to single column. Nav collapses to hamburger. 
+   Hero headline drops to 40px. CTAs go full-width.
+6. The extension demo card in the hero is the visual anchor of the whole page. 
+   Spend the most design effort here.
+7. No purple gradients. No stock AI imagery. No floating orbs. 
+   This is a precision tool — the design should feel like one.
+
+---
+
+FIGMA FILE STRUCTURE
+Page 1: Desktop (1440px) — all sections
+Page 2: Mobile (390px) — all sections responsive
+Page 3: Components — button variants, cards, pricing tiers, step cards, 
+         FAQ accordion states, feature tiles, nav states
+Page 4: Design Tokens — color styles, text styles, spacing tokens
+
+Deliver as a Figma community file with auto-layout on all components, 
+constraints set for responsive behavior, and color styles named exactly 
+as: TM/Orange/Primary, TM/Orange/Warm, TM/Background/Warm White, etc.
