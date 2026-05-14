@@ -32,6 +32,13 @@ export function Navbar() {
     scrollTo(link.toLowerCase().replace(/\s+/g, '-'));
   };
 
+  const goHome = () => {
+    window.history.pushState({}, '', '/');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setMenuOpen(false);
+  };
+
   return (
     <nav
       style={{
@@ -51,13 +58,26 @@ export function Navbar() {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
         {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
+        <button
+          type="button"
+          onClick={goHome}
+          aria-label="Go to TokenMetr home"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            cursor: 'pointer',
+            background: 'none',
+            border: 'none',
+            padding: 0,
+          }}
+        >
           <img
             src={logoBlack}
             alt="TokenMetr"
             style={{ height: '38px', width: 'auto', display: 'block' }}
           />
-        </div>
+        </button>
 
         {/* Center Nav - Desktop */}
         <div className="hidden md:flex" style={{ gap: '36px', alignItems: 'center' }}>
