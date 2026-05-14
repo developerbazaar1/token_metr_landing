@@ -4,13 +4,14 @@ import { CALENDLY_URL, CHROME_WEBSTORE_URL } from '../links';
 
 const footerLinks = {
   Product: ['Features', 'Pricing', 'How it Works', 'Chrome Store'],
-  Company: ['Talk With Us', 'Privacy Policy', 'Terms'],
+  Company: ['Talk With Us', 'FAQs', 'Privacy Policy', 'Terms'],
 };
 
 export function Footer() {
   const resolveFooterLinkHref = (link: string) => {
     if (link === 'Privacy Policy') return '/privacy-policy';
     if (link === 'Terms') return '/terms-and-conditions';
+    if (link === 'FAQs') return '/faqs';
     if (link === 'Chrome Store') return CHROME_WEBSTORE_URL;
     if (link === 'Talk With Us') return CALENDLY_URL;
     return '/';
