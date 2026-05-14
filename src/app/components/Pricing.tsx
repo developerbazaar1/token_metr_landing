@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
 import { Check } from 'lucide-react';
-
-const CHROME_WEBSTORE_URL = 'https://chromewebstore.google.com/detail/ahcfpkbcinlpjaaokjchcfjnoogmbfhj?utm_source=item-share-cb';
+import { CHROME_WEBSTORE_URL } from '../links';
 
 const plans = [
   {

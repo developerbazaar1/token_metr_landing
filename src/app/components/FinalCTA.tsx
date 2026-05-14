@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-
-const CHROME_WEBSTORE_URL = 'https://chromewebstore.google.com/detail/ahcfpkbcinlpjaaokjchcfjnoogmbfhj?utm_source=item-share-cb';
+import { CALENDLY_URL, CHROME_WEBSTORE_URL } from '../links';
 
 export function FinalCTA() {
   return (
@@ -63,6 +62,8 @@ export function FinalCTA() {
             </button>
 
             <button
+              type="button"
+              onClick={() => window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer')}
               style={{
                 background: 'none', border: 'none', cursor: 'pointer',
                 fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '15px',

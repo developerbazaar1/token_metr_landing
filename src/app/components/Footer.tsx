@@ -1,21 +1,24 @@
 import React from 'react';
-import { Zap, Twitter, Linkedin } from 'lucide-react';
+import logoWhite from '../../assets/Logo_white_no_bg.png';
+import { CALENDLY_URL, CHROME_WEBSTORE_URL } from '../links';
 
 const footerLinks = {
   Product: ['Features', 'Pricing', 'How it Works', 'Chrome Store'],
-  Company: ['About', 'Contact', 'Privacy Policy', 'Terms'],
-  Platforms: ['ChatGPT', 'Claude', 'Gemini', 'Perplexity', 'Copilot'],
+  Company: ['Talk With Us', 'Privacy Policy', 'Terms'],
 };
 
 export function Footer() {
   const resolveFooterLinkHref = (link: string) => {
     if (link === 'Privacy Policy') return '/privacy-policy';
     if (link === 'Terms') return '/terms-and-conditions';
+    if (link === 'Chrome Store') return CHROME_WEBSTORE_URL;
+    if (link === 'Talk With Us') return CALENDLY_URL;
     return '/';
   };
 
   const handleFooterNavigation = (event: React.MouseEvent<HTMLAnchorElement>, link: string) => {
     const href = resolveFooterLinkHref(link);
+    if (href.startsWith('http')) return;
     if (href === '/') return;
     event.preventDefault();
     window.history.pushState({}, '', href);
@@ -26,50 +29,36 @@ export function Footer() {
     <footer style={{ background: '#1A1A1A', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
       <div style={{
         maxWidth: '1200px', margin: '0 auto',
-        padding: '64px 40px 32px',
+        padding: '48px 40px 28px',
       }}>
-        {/* Main grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: '40px',
-          marginBottom: '56px',
+          marginBottom: '36px',
         }}>
-          {/* Brand column */}
-          <div style={{ gridColumn: 'span 1' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-              <div style={{
-                width: '32px', height: '32px',
-                background: 'linear-gradient(135deg, #E87722, #F5A53A)',
-                borderRadius: '8px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <Zap size={16} color="white" fill="white" />
-              </div>
-              <span style={{
-                fontFamily: 'Sora, sans-serif', fontWeight: 700,
-                fontSize: '17px', color: '#FFFFFF',
-              }}>
-                TokenMetr
-              </span>
-            </div>
+          <div>
+            <img
+              src={logoWhite}
+              alt="TokenMetr"
+              style={{ height: '40px', width: 'auto', display: 'block', marginBottom: '16px' }}
+            />
             <p style={{
               fontFamily: 'DM Sans, sans-serif', fontSize: '13px',
               color: 'rgba(255,255,255,0.45)', lineHeight: 1.7,
-              margin: '0 0 8px 0', maxWidth: '220px',
+              margin: '0 0 8px 0', maxWidth: '240px',
             }}>
-              Token optimization & governance for AI teams.
+              AI prompt optimization and token savings for individuals and teams.
             </p>
             <p style={{
               fontFamily: 'DM Sans, sans-serif', fontSize: '12px',
               color: 'rgba(255,255,255,0.3)', lineHeight: 1.6, margin: 0,
-              maxWidth: '220px',
+              maxWidth: '240px',
             }}>
               Built by Developer Bazaar Technologies, Indore, India.
             </p>
           </div>
 
-          {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
               <h4 style={{
@@ -81,28 +70,33 @@ export function Footer() {
                 {title}
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {links.map(link => (
-                  <a
-                    key={link}
-                    href={resolveFooterLinkHref(link)}
-                    onClick={event => handleFooterNavigation(event, link)}
-                    style={{
-                      fontFamily: 'DM Sans, sans-serif', fontSize: '14px',
-                      color: 'rgba(255,255,255,0.45)', textDecoration: 'none',
-                      transition: 'color 0.2s',
-                    }}
-                    onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.9)')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
-                  >
-                    {link}
-                  </a>
-                ))}
+                {links.map(link => {
+                  const href = resolveFooterLinkHref(link);
+
+                  return (
+                    <a
+                      key={link}
+                      href={href}
+                      onClick={event => handleFooterNavigation(event, link)}
+                      target={href.startsWith('http') ? '_blank' : undefined}
+                      rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                      style={{
+                        fontFamily: 'DM Sans, sans-serif', fontSize: '14px',
+                        color: 'rgba(255,255,255,0.45)', textDecoration: 'none',
+                        transition: 'color 0.2s',
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.9)')}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
+                    >
+                      {link}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom strip */}
         <div style={{
           borderTop: '1px solid rgba(255,255,255,0.07)',
           paddingTop: '24px',
@@ -118,36 +112,6 @@ export function Footer() {
           }}>
             © 2026 TokenMetr · Developer Bazaar Technologies
           </span>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            {[
-              { icon: Twitter, label: 'X / Twitter' },
-              { icon: Linkedin, label: 'LinkedIn' },
-            ].map(({ icon: Icon, label }) => (
-              <a
-                key={label}
-                href="#"
-                title={label}
-                style={{
-                  width: '34px', height: '34px',
-                  background: 'rgba(255,255,255,0.07)',
-                  borderRadius: '8px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  transition: 'background 0.2s',
-                  color: 'rgba(255,255,255,0.45)',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.14)';
-                  (e.currentTarget as HTMLElement).style.color = '#FFFFFF';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.07)';
-                  (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.45)';
-                }}
-              >
-                <Icon size={16} />
-              </a>
-            ))}
-          </div>
         </div>
       </div>
     </footer>

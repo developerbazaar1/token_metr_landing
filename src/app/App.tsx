@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import '../styles/fonts.css';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { SocialProof } from './components/SocialProof';
 import { Problem } from './components/Problem';
 import { HowItWorks } from './components/HowItWorks';
 import { LiveDemo } from './components/LiveDemo';
@@ -45,7 +44,6 @@ export default function App() {
         ) : (
           <>
             <Hero />
-            <SocialProof />
             <Problem />
             <HowItWorks />
             <LiveDemo />

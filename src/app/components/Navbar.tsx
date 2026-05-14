@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Zap } from 'lucide-react';
-
-const CHROME_WEBSTORE_URL = 'https://chromewebstore.google.com/detail/ahcfpkbcinlpjaaokjchcfjnoogmbfhj?utm_source=item-share-cb';
+import { Menu, X } from 'lucide-react';
+import logoBlack from '../../assets/Logo_black_no_bg.png';
+import { CALENDLY_URL, CHROME_WEBSTORE_URL } from '../links';
 
 const navLinks = ['Features', 'For Teams', 'Pricing', 'How it Works'];
 
@@ -20,6 +20,16 @@ export function Navbar() {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
     setMenuOpen(false);
+  };
+
+  const goToNavLink = (link: string) => {
+    if (link === 'For Teams') {
+      window.dispatchEvent(new CustomEvent('tokenmetr:features-tab', { detail: 'teams' }));
+      scrollTo('features');
+      return;
+    }
+
+    scrollTo(link.toLowerCase().replace(/\s+/g, '-'));
   };
 
   return (
@@ -42,18 +52,11 @@ export function Navbar() {
       }}>
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-          <div style={{
-            width: '34px', height: '34px',
-            background: 'linear-gradient(135deg, #E87722, #F5A53A)',
-            borderRadius: '9px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 2px 8px rgba(232,119,34,0.3)',
-          }}>
-            <Zap size={18} color="white" fill="white" />
-          </div>
-          <span style={{ fontFamily: 'Sora, sans-serif', fontWeight: 700, fontSize: '18px', color: '#1A1A1A' }}>
-            TokenMetr
-          </span>
+          <img
+            src={logoBlack}
+            alt="TokenMetr"
+            style={{ height: '38px', width: 'auto', display: 'block' }}
+          />
         </div>
 
         {/* Center Nav - Desktop */}
@@ -61,7 +64,7 @@ export function Navbar() {
           {navLinks.map(link => (
             <button
               key={link}
-              onClick={() => scrollTo(link.toLowerCase().replace(/\s+/g, '-'))}
+              onClick={() => goToNavLink(link)}
               style={{
                 fontFamily: 'DM Sans, sans-serif', fontSize: '15px',
                 color: '#6B7280', background: 'none', border: 'none',
@@ -77,7 +80,7 @@ export function Navbar() {
 
         {/* Right - Desktop */}
         <div className="hidden md:flex" style={{ alignItems: 'center', gap: '20px' }}>
-          <a href="https://chromewebstore.google.com/detail/ahcfpkbcinlpjaaokjchcfjnoogmbfhj?utm_source=item-share-cb" style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '14px', color: '#6B7280', textDecoration: 'none' }}>
+          <a href={CALENDLY_URL} target="_blank" rel="noreferrer" style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '14px', color: '#6B7280', textDecoration: 'none' }}>
             Talk With Us
           </a>
           <button
@@ -130,7 +133,7 @@ export function Navbar() {
               {navLinks.map(link => (
                 <button
                   key={link}
-                  onClick={() => scrollTo(link.toLowerCase().replace(/\s+/g, '-'))}
+                  onClick={() => goToNavLink(link)}
                   style={{
                     fontFamily: 'DM Sans, sans-serif', fontSize: '15px',
                     color: '#6B7280', background: 'none', border: 'none',
@@ -140,6 +143,17 @@ export function Navbar() {
                   {link}
                 </button>
               ))}
+              <button
+                type="button"
+                onClick={() => window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer')}
+                style={{
+                  background: 'transparent', color: '#6B7280',
+                  fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '15px',
+                  borderRadius: '8px', padding: '12px', border: '1px solid #E5E3DF', cursor: 'pointer',
+                }}
+              >
+                Talk With Us
+              </button>
               <button
                 onClick={() => window.open(CHROME_WEBSTORE_URL, '_blank', 'noopener,noreferrer')}
                 style={{

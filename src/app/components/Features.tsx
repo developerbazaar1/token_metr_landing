@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Hash, Sparkles, Calculator, TrendingUp, Shield, Bell, CircleDollarSign, Download } from 'lucide-react';
 
@@ -48,18 +48,20 @@ const teamFeatures = [
   },
 ];
 
-const platforms = [
-  { name: 'ChatGPT', color: '#10A37F' },
-  { name: 'Claude', color: '#D97706' },
-  { name: 'Gemini', color: '#4285F4' },
-  { name: 'Perplexity', color: '#20B2AA' },
-  { name: 'Copilot', color: '#0078D4' },
-];
-
 export function Features() {
   const [tab, setTab] = useState<'individuals' | 'teams'>('individuals');
 
   const features = tab === 'individuals' ? individualFeatures : teamFeatures;
+
+  useEffect(() => {
+    const handleFeatureTab = (event: Event) => {
+      const nextTab = (event as CustomEvent<'individuals' | 'teams'>).detail;
+      if (nextTab === 'individuals' || nextTab === 'teams') setTab(nextTab);
+    };
+
+    window.addEventListener('tokenmetr:features-tab', handleFeatureTab);
+    return () => window.removeEventListener('tokenmetr:features-tab', handleFeatureTab);
+  }, []);
 
   return (
     <section
@@ -129,7 +131,6 @@ export function Features() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
               gap: '20px',
-              marginBottom: '56px',
             }}
           >
             {features.map((f, i) => (
@@ -178,55 +179,6 @@ export function Features() {
             ))}
           </motion.div>
         </AnimatePresence>
-
-        {/* Platform strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          style={{
-            borderTop: '1px solid #E5E3DF',
-            paddingTop: '40px',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '24px',
-          }}
-        >
-          <span style={{
-            fontFamily: 'DM Sans, sans-serif', fontSize: '13px',
-            color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600,
-          }}>
-            Works inside:
-          </span>
-          {platforms.map(p => (
-            <div
-              key={p.name}
-              style={{
-                padding: '8px 18px',
-                borderRadius: '8px',
-                border: '1px solid #E5E3DF',
-                fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '14px',
-                color: '#9CA3AF',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                background: '#FFFFFF',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.color = p.color;
-                (e.currentTarget as HTMLElement).style.borderColor = p.color + '40';
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.color = '#9CA3AF';
-                (e.currentTarget as HTMLElement).style.borderColor = '#E5E3DF';
-              }}
-            >
-              {p.name}
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

@@ -1,14 +1,18 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, ArrowRightCircle } from 'lucide-react';
-
-const CHROME_WEBSTORE_URL = 'https://chromewebstore.google.com/detail/ahcfpkbcinlpjaaokjchcfjnoogmbfhj?utm_source=item-share-cb';
+import { CHROME_WEBSTORE_URL } from '../links';
 
 const bloatedPrompt = `Hi there! I just wanted to reach out and ask you a question about something I was wondering about and wasn't sure of. Could you please help me understand how I might go about explaining the concept of machine learning to someone who has absolutely no background in technology or computers whatsoever?`;
 
 const optimizedPrompt = `Explain machine learning to a complete non-technical beginner. Use a simple analogy.`;
 
 export function Hero() {
+  const goToTeamsFeatures = () => {
+    window.dispatchEvent(new CustomEvent('tokenmetr:features-tab', { detail: 'teams' }));
+    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const stagger = {
     hidden: {},
     show: { transition: { staggerChildren: 0.12 } },
@@ -128,6 +132,8 @@ export function Hero() {
             Add to Chrome — Free
           </button>
           <button
+            type="button"
+            onClick={goToTeamsFeatures}
             style={{
               background: 'none', border: 'none', cursor: 'pointer',
               fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '16px',
