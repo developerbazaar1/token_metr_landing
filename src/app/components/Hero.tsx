@@ -33,13 +33,62 @@ export function Hero() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          backgroundImage:
+            'linear-gradient(rgba(232,119,34,0.075) 1px, transparent 1px), linear-gradient(90deg, rgba(232,119,34,0.075) 1px, transparent 1px)',
+          backgroundSize: '46px 46px',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 62%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 62%, transparent 100%)',
+        }}
+      />
+      <motion.div
+        aria-hidden="true"
+        animate={{ x: [0, 34, 0], y: [0, -22, 0], scale: [1, 1.05, 1] }}
+        transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut' }}
+        style={{
+          position: 'absolute',
+          width: '440px',
+          height: '440px',
+          top: '-120px',
+          right: '10%',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(245,165,58,0.34), rgba(245,165,58,0) 66%)',
+          filter: 'blur(18px)',
+          pointerEvents: 'none',
+        }}
+      />
+      <motion.div
+        aria-hidden="true"
+        animate={{ x: [0, -28, 0], y: [0, 28, 0], scale: [1, 1.08, 1] }}
+        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+        style={{
+          position: 'absolute',
+          width: '340px',
+          height: '340px',
+          bottom: '10%',
+          left: '6%',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(232,119,34,0.16), rgba(232,119,34,0) 68%)',
+          filter: 'blur(18px)',
+          pointerEvents: 'none',
+        }}
+      />
       <motion.div
         variants={stagger}
         initial="hidden"
         animate="show"
         style={{
+          position: 'relative',
+          zIndex: 1,
           maxWidth: '800px',
           width: '100%',
           padding: '0 24px',
