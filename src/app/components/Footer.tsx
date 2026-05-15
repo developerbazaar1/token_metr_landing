@@ -3,7 +3,7 @@ import logoWhite from '../../assets/Logo_white_no_bg.png';
 import { CALENDLY_URL, CHROME_WEBSTORE_URL } from '../links';
 
 const footerLinks = {
-  Product: ['Features', 'Pricing', 'How it Works', 'Chrome Store'],
+  Product: ['Features', 'Prompt Optimizer', 'Chrome Store'],
   Company: ['Talk With Us', 'FAQs', 'Privacy Policy', 'Terms'],
 };
 
@@ -14,6 +14,8 @@ export function Footer() {
     if (link === 'FAQs') return '/faqs';
     if (link === 'Chrome Store') return CHROME_WEBSTORE_URL;
     if (link === 'Talk With Us') return CALENDLY_URL;
+    if (link === 'Prompt Optimizer') return '/#live-demo';
+    if (link === 'Features') return '/#features';
     return '/';
   };
 
@@ -24,6 +26,11 @@ export function Footer() {
     event.preventDefault();
     window.history.pushState({}, '', href);
     window.dispatchEvent(new PopStateEvent('popstate'));
+
+    const hash = href.split('#')[1];
+    if (hash) {
+      document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -111,7 +118,7 @@ export function Footer() {
             fontFamily: 'DM Sans, sans-serif', fontSize: '13px',
             color: 'rgba(255,255,255,0.35)',
           }}>
-            © 2026 TokenMetr · Developer Bazaar Technologies
+            © 2026 TokenMetr - Developer Bazaar Technologies
           </span>
         </div>
       </div>

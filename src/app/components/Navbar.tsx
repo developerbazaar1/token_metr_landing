@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
-import logoBlack from '../../assets/Logo_black_no_bg.png';
+const logoBlack = new URL('../../assets/Logo_black_no_bg.png', import.meta.url).href;
 import { CALENDLY_URL, CHROME_WEBSTORE_URL } from '../links';
 
-const navLinks = ['Features', 'For Teams', 'Pricing', 'How it Works'];
+const navLinks = ['Features', 'For Teams', 'Prompt Optimizer', 'Blog'];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -26,6 +26,17 @@ export function Navbar() {
     if (link === 'For Teams') {
       window.dispatchEvent(new CustomEvent('tokenmetr:features-tab', { detail: 'teams' }));
       scrollTo('features');
+      return;
+    }
+
+    if (link === 'Prompt Optimizer') {
+      scrollTo('live-demo');
+      return;
+    }
+
+    if (link === 'Blog') {
+      window.location.href = '/blog';
+      setMenuOpen(false);
       return;
     }
 
@@ -122,7 +133,7 @@ export function Navbar() {
               e.currentTarget.style.transform = 'none';
             }}
           >
-            Add to Chrome — Free
+            Add to Chrome - Free
           </button>
         </div>
 
@@ -182,7 +193,7 @@ export function Navbar() {
                   borderRadius: '8px', padding: '14px', border: 'none', cursor: 'pointer',
                 }}
               >
-                Add to Chrome — Free
+                Add to Chrome - Free
               </button>
             </div>
           </motion.div>

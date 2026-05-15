@@ -1,3 +1,9 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+@media (min-width: 1180px) {
+  .features-grid-individuals {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}

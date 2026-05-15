@@ -24,6 +24,10 @@ export const landingFaqs = [
     a: 'TokenMetr is designed to work across major AI platforms including ChatGPT, Claude, Gemini, DeepSeek, and Perplexity.',
   },
   {
+    q: 'Is the Developer Platform available yet?',
+    a: 'The TokenMetr Developer Platform is currently planned as an upcoming capability. It is being designed for teams that want token intelligence, prompt optimization, and cost visibility inside their own products, APIs, and internal AI workflows.',
+  },
+  {
     q: 'Can it handle large or complex prompts?',
     a: 'Yes. TokenMetr is built for advanced workflows including long-context prompts, multi-role systems, AI agents, technical instructions, and enterprise-scale prompt operations.',
   },

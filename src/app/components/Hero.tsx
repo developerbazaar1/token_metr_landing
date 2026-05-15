@@ -1,18 +1,13 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, ArrowRightCircle } from 'lucide-react';
-import { CHROME_WEBSTORE_URL } from '../links';
+import { CALENDLY_URL, CHROME_WEBSTORE_URL } from '../links';
 
 const bloatedPrompt = `Hi there! I just wanted to reach out and ask you a question about something I was wondering about and wasn't sure of. Could you please help me understand how I might go about explaining the concept of machine learning to someone who has absolutely no background in technology or computers whatsoever?`;
 
 const optimizedPrompt = `Explain machine learning to a complete non-technical beginner. Use a simple analogy.`;
 
 export function Hero() {
-  const goToTeamsFeatures = () => {
-    window.dispatchEvent(new CustomEvent('tokenmetr:features-tab', { detail: 'teams' }));
-    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const stagger = {
     hidden: {},
     show: { transition: { staggerChildren: 0.12 } },
@@ -98,19 +93,38 @@ export function Hero() {
           textAlign: 'center',
         }}
       >
-        {/* Eyebrow badge */}
+        {/* Eyebrow badges */}
         <motion.div variants={fadeUp}>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '10px',
+              marginBottom: '28px',
+            }}
+          >
           <span style={{
             display: 'inline-flex', alignItems: 'center', gap: '6px',
             background: '#FEF3E8', border: '1px solid #F5A53A',
             borderRadius: '999px', padding: '6px 14px',
             fontFamily: 'DM Sans, sans-serif', fontSize: '12px', fontWeight: 500,
             color: '#E87722', letterSpacing: '0.01em',
-            marginBottom: '28px',
           }}>
             <span style={{ width: '6px', height: '6px', background: '#E87722', borderRadius: '50%', display: 'inline-block' }} />
-            Chrome Extension · Free to install
+            Chrome Extension - Free to install
           </span>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            background: '#F0FDF4', border: '1px solid #86EFAC',
+            borderRadius: '999px', padding: '6px 14px',
+            fontFamily: 'DM Sans, sans-serif', fontSize: '12px', fontWeight: 600,
+            color: '#15803D', letterSpacing: '0.01em',
+          }}>
+            <span style={{ width: '6px', height: '6px', background: '#22C55E', borderRadius: '50%', display: 'inline-block' }} />
+            98% optimization accuracy
+          </span>
+          </div>
         </motion.div>
 
         {/* Main Heading */}
@@ -144,8 +158,8 @@ export function Hero() {
             margin: '0 0 36px 0',
           }}
         >
-          TokenMetr shows your token count and an optimized prompt —{' '}
-          <strong style={{ color: '#2D2D2D', fontWeight: 500 }}>before you hit send.</strong>
+          TokenMetr measures your prompt cost before you send, then suggests a cleaner version with
+          <strong style={{ color: '#2D2D2D', fontWeight: 600 }}> up to 98% token-optimization accuracy.</strong>
         </motion.p>
 
         {/* CTAs */}
@@ -178,11 +192,11 @@ export function Hero() {
               e.currentTarget.style.transform = 'none';
             }}
           >
-            Add to Chrome — Free
+            Add to Chrome - Free
           </button>
           <button
             type="button"
-            onClick={goToTeamsFeatures}
+            onClick={() => window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer')}
             style={{
               background: 'none', border: 'none', cursor: 'pointer',
               fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '16px',
@@ -357,7 +371,7 @@ export function Hero() {
         >
           {[
             '63% fewer tokens',
-            '64% lower cost',
+            '65% lower cost',
             'Works in ChatGPT, Claude, Gemini, Perplexity',
           ].map((stat, i) => (
             <span key={stat} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>

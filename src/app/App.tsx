@@ -2,12 +2,8 @@ import React, { useEffect, useState } from 'react';
 import '../styles/fonts.css';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { Problem } from './components/Problem';
-import { HowItWorks } from './components/HowItWorks';
 import { LiveDemo } from './components/LiveDemo';
 import { Features } from './components/Features';
-import { Metrics } from './components/Metrics';
-import { Pricing } from './components/Pricing';
 import { Comparison } from './components/Comparison';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
@@ -48,12 +44,8 @@ export default function App() {
         ) : (
           <>
             <Hero />
-            <Problem />
-            <HowItWorks />
-            <LiveDemo />
             <Features />
-            <Metrics />
-            <Pricing />
+            <LiveDemo />
             <Comparison />
             <Testimonials />
             <FAQ />
@@ -61,7 +53,7 @@ export default function App() {
           </>
         )}
       </main>
-      {!isPromptPlatformPage && !isLegalPage && <Footer />}
+      {!isLegalPage && <Footer />}
     </div>
   );
 }

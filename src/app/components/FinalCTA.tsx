@@ -34,7 +34,7 @@ export function FinalCTA() {
             color: '#FFFFFF', margin: '0 0 40px 0',
             letterSpacing: '-0.02em',
           }}>
-            Your team is spending more on AI than you know.
+            Never hit the context window limit again. 
           </h2>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center', marginBottom: '24px' }}>
