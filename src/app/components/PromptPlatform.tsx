@@ -385,101 +385,6 @@ export function PromptPlatform() {
             padding: '0',
           }}
         >
-          <div className="prompt-controls" style={{ display: 'grid', gridTemplateColumns: 'minmax(190px, 0.55fr) minmax(220px, 0.75fr) minmax(280px, 0.65fr) auto', gap: '14px', marginBottom: '18px', alignItems: 'end', background: '#FFFFFF', border: '1px solid #E5E3DF', borderRadius: '16px', padding: '16px', boxShadow: '0 12px 34px rgba(0,0,0,0.05)' }}>
-            <label style={{ display: 'block' }}>
-              <span style={{ display: 'block', fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: '#374151', marginBottom: '8px', fontWeight: 700 }}>
-                Platform
-              </span>
-              <select
-                value={platform}
-                onChange={event => handlePlatformChange(event.target.value as PlatformKey)}
-                style={{
-                  width: '100%',
-                  padding: '12px 14px',
-                  borderRadius: '10px',
-                  border: '1px solid #E5E3DF',
-                  background: '#FFFFFF',
-                  fontFamily: 'DM Sans, sans-serif',
-                  fontSize: '15px',
-                }}
-              >
-                {platformConfig.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label style={{ display: 'block' }}>
-              <span style={{ display: 'block', fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: '#374151', marginBottom: '8px', fontWeight: 700 }}>
-                Model
-              </span>
-              <select
-                value={model}
-                onChange={event => setModel(event.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '12px 14px',
-                  borderRadius: '10px',
-                  border: '1px solid #E5E3DF',
-                  background: '#FFFFFF',
-                  fontFamily: 'DM Sans, sans-serif',
-                  fontSize: '15px',
-                }}
-              >
-                {modelsForSelectedPlatform.map(modelOption => (
-                  <option key={modelOption} value={modelOption}>
-                    {modelOption}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', alignSelf: 'stretch' }}>
-              <div style={{ background: '#FFF7EE', borderRadius: '10px', padding: '10px 12px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '10px', color: '#9CA3AF', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Active platform</div>
-                <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '14px', fontWeight: 800, color: '#1F2937' }}>{currentPlatformLabel}</div>
-              </div>
-              <div style={{ background: '#F9FAFB', borderRadius: '10px', padding: '10px 12px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '10px', color: '#9CA3AF', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Active model</div>
-                <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '14px', fontWeight: 800, color: '#1F2937', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{model}</div>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleOptimize}
-              disabled={status === 'loading' || !prompt.trim()}
-              style={{
-                background: !prompt.trim() || status === 'loading' ? '#D1D5DB' : 'linear-gradient(135deg, #E87722, #F5A53A)',
-                color: '#FFFFFF',
-                border: 'none',
-                borderRadius: '10px',
-                padding: '13px 18px',
-                fontFamily: 'DM Sans, sans-serif',
-                fontSize: '15px',
-                fontWeight: 700,
-                cursor: !prompt.trim() || status === 'loading' ? 'not-allowed' : 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                minWidth: '168px',
-              }}
-            >
-              {status === 'loading' ? (
-                <>
-                  <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Optimizing
-                </>
-              ) : (
-                <>
-                  Optimize <Send size={16} />
-                </>
-              )}
-            </button>
-          </div>
-
           <div
             className="prompt-metrics-grid"
             style={{
@@ -582,6 +487,90 @@ export function PromptPlatform() {
                 {optimizedText || 'Your optimized prompt will appear here after TokenMetr compresses the original.'}
               </div>
             </div>
+          </div>
+
+          <div className="prompt-controls" style={{ display: 'grid', gridTemplateColumns: 'minmax(190px, 0.6fr) minmax(220px, 1fr) auto', gap: '14px', margin: '18px 0', alignItems: 'end', background: '#FFFFFF', border: '1px solid #E5E3DF', borderRadius: '16px', padding: '16px', boxShadow: '0 12px 34px rgba(0,0,0,0.05)' }}>
+            <label style={{ display: 'block' }}>
+              <span style={{ display: 'block', fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: '#374151', marginBottom: '8px', fontWeight: 700 }}>
+                Platform
+              </span>
+              <select
+                value={platform}
+                onChange={event => handlePlatformChange(event.target.value as PlatformKey)}
+                style={{
+                  width: '100%',
+                  padding: '12px 14px',
+                  borderRadius: '10px',
+                  border: '1px solid #E5E3DF',
+                  background: '#FFFFFF',
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontSize: '15px',
+                }}
+              >
+                {platformConfig.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label style={{ display: 'block' }}>
+              <span style={{ display: 'block', fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: '#374151', marginBottom: '8px', fontWeight: 700 }}>
+                Model
+              </span>
+              <select
+                value={model}
+                onChange={event => setModel(event.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '12px 14px',
+                  borderRadius: '10px',
+                  border: '1px solid #E5E3DF',
+                  background: '#FFFFFF',
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontSize: '15px',
+                }}
+              >
+                {modelsForSelectedPlatform.map(modelOption => (
+                  <option key={modelOption} value={modelOption}>
+                    {modelOption}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <button
+              type="button"
+              onClick={handleOptimize}
+              disabled={status === 'loading' || !prompt.trim()}
+              style={{
+                background: !prompt.trim() || status === 'loading' ? '#D1D5DB' : 'linear-gradient(135deg, #E87722, #F5A53A)',
+                color: '#FFFFFF',
+                border: 'none',
+                borderRadius: '10px',
+                padding: '13px 18px',
+                fontFamily: 'DM Sans, sans-serif',
+                fontSize: '15px',
+                fontWeight: 700,
+                cursor: !prompt.trim() || status === 'loading' ? 'not-allowed' : 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                minWidth: '168px',
+              }}
+            >
+              {status === 'loading' ? (
+                <>
+                  <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Optimizing
+                </>
+              ) : (
+                <>
+                  Optimize <Send size={16} />
+                </>
+              )}
+            </button>
           </div>
 
           {status === 'error' && (

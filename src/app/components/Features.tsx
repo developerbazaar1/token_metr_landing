@@ -57,20 +57,20 @@ const roadmapFeatures = [
   {
     icon: Code2,
     title: 'Developer Platform',
-    desc: 'API-ready token intelligence for product teams that want prompt analytics inside their own workflows.',
+    desc: 'Generate an API key, use our model within your own platform, and get complete insight into how it performs.',
     meta: 'API access',
   },
   {
     icon: ScanSearch,
     title: 'Prompt Insight',
-    desc: 'Deeper prompt quality signals that show where cost, clarity, and output quality can improve.',
+    desc: 'Review your prompt history, spot repeated mistakes, and improve the way you write prompt inputs over time.',
     meta: 'Quality analytics',
   },
   {
     icon: Library,
     title: 'Prompt Library',
-    desc: 'A shared workspace for saving proven prompts, organizing templates, and reusing what works.',
-    meta: 'Team knowledge',
+    desc: 'Save reusable templates and use them to carve multiple prompts faster across repeated workflows.',
+    meta: 'Saved templates',
   },
 ];
 
@@ -141,7 +141,7 @@ export function Features() {
                   transition: 'all 0.25s ease',
                 }}
               >
-                {t === 'individuals' ? 'For Individuals' : t === 'teams' ? 'For Teams' : 'Product Roadmap'}
+                {t === 'individuals' ? 'For Individuals' : t === 'teams' ? 'For Teams' : 'Upcoming Features'}
               </button>
             ))}
           </div>
