@@ -52,6 +52,7 @@ export function Navbar() {
 
   return (
     <nav
+      className="site-navbar"
       style={{
         position: 'fixed',
         top: 0, left: 0, right: 0,
@@ -63,7 +64,7 @@ export function Navbar() {
         transition: 'background-color 0.3s ease, backdrop-filter 0.3s ease',
       }}
     >
-      <div style={{
+      <div className="site-navbar__inner" style={{
         maxWidth: '1440px', margin: '0 auto',
         padding: '0 40px', height: '100%',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -139,7 +140,7 @@ export function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden"
+          className="site-navbar__menu-button md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#1A1A1A', padding: '4px' }}
         >

@@ -178,7 +178,7 @@ export function Hero() {
               cursor: 'pointer',
               transition: 'all 0.2s ease',
               boxShadow: '0 4px 16px rgba(232, 119, 34, 0.25)',
-              width: 'clamp(220px, 50vw, auto)',
+              minWidth: '220px',
             }}
             onMouseEnter={e => {
               e.currentTarget.style.boxShadow = '0 8px 24px rgba(232,119,34,0.4)';
@@ -221,7 +221,7 @@ export function Hero() {
           }}
         >
           <video
-            src="/Hero Section.mp4"
+            src="/Hero-Section.mp4"
             autoPlay
             muted
             loop
