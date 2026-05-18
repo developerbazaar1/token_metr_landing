@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-
-const CHROME_WEBSTORE_URL = 'https://chromewebstore.google.com/detail/ahcfpkbcinlpjaaokjchcfjnoogmbfhj?utm_source=item-share-cb';
+import { CALENDLY_URL, CHROME_WEBSTORE_URL } from '../links';
 
 export function FinalCTA() {
   return (
@@ -35,7 +34,7 @@ export function FinalCTA() {
             color: '#FFFFFF', margin: '0 0 40px 0',
             letterSpacing: '-0.02em',
           }}>
-            Your team is spending more on AI than you know.
+            Never hit the context window limit again. 
           </h2>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center', marginBottom: '24px' }}>
@@ -63,6 +62,8 @@ export function FinalCTA() {
             </button>
 
             <button
+              type="button"
+              onClick={() => window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer')}
               style={{
                 background: 'none', border: 'none', cursor: 'pointer',
                 fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '15px',

@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Hash, Sparkles, Calculator, TrendingUp, Shield, Bell, CircleDollarSign, Download } from 'lucide-react';
+import { Hash, Sparkles, Calculator, TrendingUp, Shield, Bell, CircleDollarSign, Download, Lightbulb, Code2, Library, ScanSearch } from 'lucide-react';
 
 const individualFeatures = [
   {
     icon: Hash,
     title: 'Real-time token counter',
-    desc: 'See exactly how many tokens your prompt uses as you type — before you pay for it.',
+    desc: 'See exactly how many tokens your prompt uses as you type - before you pay for it.',
   },
   {
     icon: Sparkles,
@@ -16,12 +16,17 @@ const individualFeatures = [
   {
     icon: Calculator,
     title: 'Per-model cost estimator',
-    desc: 'Know the exact cost for GPT-4o, Claude 3.5, Gemini 1.5 Pro, and more — in real-time.',
+    desc: 'Know the exact cost for GPT-4o, Claude 3.5, Gemini 1.5 Pro, and more - in real-time.',
   },
   {
     icon: TrendingUp,
     title: 'Prompt savings history',
     desc: 'Track how much you\'ve saved over days, weeks, and months. Your efficiency, visualized.',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Prompt Advisor',
+    desc: 'Get practical prompt improvements, clarity checks, and cost-saving guidance included free of cost.',
   },
 ];
 
@@ -39,7 +44,7 @@ const teamFeatures = [
   {
     icon: CircleDollarSign,
     title: 'Spend visibility for finance',
-    desc: 'Give your finance team a live view of AI costs — broken down by team, member, and model.',
+    desc: 'Give your finance team a live view of AI costs - broken down by team, member, and model.',
   },
   {
     icon: Download,
@@ -48,18 +53,41 @@ const teamFeatures = [
   },
 ];
 
-const platforms = [
-  { name: 'ChatGPT', color: '#10A37F' },
-  { name: 'Claude', color: '#D97706' },
-  { name: 'Gemini', color: '#4285F4' },
-  { name: 'Perplexity', color: '#20B2AA' },
-  { name: 'Copilot', color: '#0078D4' },
+const roadmapFeatures = [
+  {
+    icon: Code2,
+    title: 'Developer Platform',
+    desc: 'Generate an API key, use our model within your own platform, and get complete insight into how it performs.',
+    meta: 'API access',
+  },
+  {
+    icon: ScanSearch,
+    title: 'Prompt Insight',
+    desc: 'Review your prompt history, spot repeated mistakes, and improve the way you write prompt inputs over time.',
+    meta: 'Quality analytics',
+  },
+  {
+    icon: Library,
+    title: 'Prompt Library',
+    desc: 'Save reusable templates and use them to carve multiple prompts faster across repeated workflows.',
+    meta: 'Saved templates',
+  },
 ];
 
 export function Features() {
-  const [tab, setTab] = useState<'individuals' | 'teams'>('individuals');
+  const [tab, setTab] = useState<'individuals' | 'teams' | 'roadmap'>('individuals');
 
-  const features = tab === 'individuals' ? individualFeatures : teamFeatures;
+  const features = tab === 'individuals' ? individualFeatures : tab === 'teams' ? teamFeatures : roadmapFeatures;
+
+  useEffect(() => {
+    const handleFeatureTab = (event: Event) => {
+      const nextTab = (event as CustomEvent<'individuals' | 'teams' | 'roadmap'>).detail;
+      if (nextTab === 'individuals' || nextTab === 'teams' || nextTab === 'roadmap') setTab(nextTab);
+    };
+
+    window.addEventListener('tokenmetr:features-tab', handleFeatureTab);
+    return () => window.removeEventListener('tokenmetr:features-tab', handleFeatureTab);
+  }, []);
 
   return (
     <section
@@ -93,12 +121,14 @@ export function Features() {
           {/* Toggle */}
           <div style={{
             display: 'inline-flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
             background: '#F4F4F2',
             border: '1px solid #E5E3DF',
             borderRadius: '999px',
             padding: '4px',
           }}>
-            {(['individuals', 'teams'] as const).map(t => (
+            {(['individuals', 'teams', 'roadmap'] as const).map(t => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
@@ -111,7 +141,7 @@ export function Features() {
                   transition: 'all 0.25s ease',
                 }}
               >
-                {t === 'individuals' ? 'For Individuals' : 'For Teams'}
+                {t === 'individuals' ? 'For Individuals' : t === 'teams' ? 'For Teams' : 'Upcoming Features'}
               </button>
             ))}
           </div>
@@ -120,6 +150,7 @@ export function Features() {
         {/* Feature Grid */}
         <AnimatePresence mode="wait">
           <motion.div
+            className={tab === 'individuals' ? 'features-grid features-grid-individuals' : 'features-grid'}
             key={tab}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -128,8 +159,7 @@ export function Features() {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '20px',
-              marginBottom: '56px',
+              gap: tab === 'individuals' ? '14px' : '20px',
             }}
           >
             {features.map((f, i) => (
@@ -139,10 +169,12 @@ export function Features() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.07, duration: 0.4 }}
                 style={{
-                  background: '#FFFFFF',
-                  border: '1px solid #E5E3DF',
+                  background: tab === 'roadmap' ? 'linear-gradient(180deg, #FFFFFF 0%, #FFF8F1 100%)' : '#FFFFFF',
+                  border: tab === 'roadmap' ? '1px solid rgba(232,119,34,0.22)' : '1px solid #E5E3DF',
                   borderRadius: '12px',
                   padding: '24px',
+                  position: 'relative',
+                  overflow: 'hidden',
                   transition: 'box-shadow 0.2s, transform 0.2s',
                 }}
                 onMouseEnter={e => {
@@ -154,6 +186,25 @@ export function Features() {
                   (e.currentTarget as HTMLElement).style.transform = 'none';
                 }}
               >
+                {tab === 'roadmap' && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: '18px',
+                      right: '18px',
+                      background: '#F0FDF4',
+                      border: '1px solid #86EFAC',
+                      borderRadius: '999px',
+                      padding: '4px 9px',
+                      fontFamily: 'DM Sans, sans-serif',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      color: '#15803D',
+                    }}
+                  >
+                    {(f as (typeof roadmapFeatures)[number]).meta}
+                  </span>
+                )}
                 <div style={{
                   width: '42px', height: '42px',
                   background: '#FEF3E8', borderRadius: '10px',
@@ -178,55 +229,6 @@ export function Features() {
             ))}
           </motion.div>
         </AnimatePresence>
-
-        {/* Platform strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          style={{
-            borderTop: '1px solid #E5E3DF',
-            paddingTop: '40px',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '24px',
-          }}
-        >
-          <span style={{
-            fontFamily: 'DM Sans, sans-serif', fontSize: '13px',
-            color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600,
-          }}>
-            Works inside:
-          </span>
-          {platforms.map(p => (
-            <div
-              key={p.name}
-              style={{
-                padding: '8px 18px',
-                borderRadius: '8px',
-                border: '1px solid #E5E3DF',
-                fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '14px',
-                color: '#9CA3AF',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                background: '#FFFFFF',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.color = p.color;
-                (e.currentTarget as HTMLElement).style.borderColor = p.color + '40';
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.color = '#9CA3AF';
-                (e.currentTarget as HTMLElement).style.borderColor = '#E5E3DF';
-              }}
-            >
-              {p.name}
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

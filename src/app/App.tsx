@@ -2,13 +2,8 @@ import React, { useEffect, useState } from 'react';
 import '../styles/fonts.css';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { SocialProof } from './components/SocialProof';
-import { Problem } from './components/Problem';
-import { HowItWorks } from './components/HowItWorks';
 import { LiveDemo } from './components/LiveDemo';
 import { Features } from './components/Features';
-import { Metrics } from './components/Metrics';
-import { Pricing } from './components/Pricing';
 import { Comparison } from './components/Comparison';
 import { Testimonials } from './components/Testimonials';
 import { FAQ } from './components/FAQ';
@@ -17,6 +12,7 @@ import { Footer } from './components/Footer';
 import { PromptPlatform } from './components/PromptPlatform';
 import { PrivacyPolicyPage } from './components/PrivacyPolicyPage';
 import { TermsAndConditionsPage } from './components/TermsAndConditionsPage';
+import { FullFAQPage } from './components/FullFAQPage';
 
 export default function App() {
   const [path, setPath] = useState(window.location.pathname);
@@ -30,6 +26,7 @@ export default function App() {
   const isPromptPlatformPage = path === '/prompt-platform';
   const isPrivacyPolicyPage = path === '/privacy-policy';
   const isTermsAndConditionsPage = path === '/terms-and-conditions';
+  const isFullFAQPage = path === '/faqs';
   const isLegalPage = isPrivacyPolicyPage || isTermsAndConditionsPage;
 
   return (
@@ -42,16 +39,13 @@ export default function App() {
           <PrivacyPolicyPage />
         ) : isTermsAndConditionsPage ? (
           <TermsAndConditionsPage />
+        ) : isFullFAQPage ? (
+          <FullFAQPage />
         ) : (
           <>
             <Hero />
-            <SocialProof />
-            <Problem />
-            <HowItWorks />
-            <LiveDemo />
             <Features />
-            <Metrics />
-            <Pricing />
+            <LiveDemo />
             <Comparison />
             <Testimonials />
             <FAQ />
@@ -59,7 +53,7 @@ export default function App() {
           </>
         )}
       </main>
-      {!isPromptPlatformPage && !isLegalPage && <Footer />}
+      {!isLegalPage && <Footer />}
     </div>
   );
 }
