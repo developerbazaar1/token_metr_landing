@@ -30,7 +30,7 @@ export default function App() {
   const isLegalPage = isPrivacyPolicyPage || isTermsAndConditionsPage;
 
   return (
-    <div style={{ background: '#FDFCFA', overflowX: 'hidden' }}>
+    <div className="site-shell" style={{ background: '#FDFCFA', overflowX: 'hidden' }}>
       <Navbar />
       <main style={{ paddingTop: '64px' }}>
         {isPromptPlatformPage ? (

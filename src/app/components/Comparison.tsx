@@ -24,11 +24,13 @@ export function Comparison() {
   return (
     <section
       id="comparison"
+      className="comparison-section"
       style={{ background: '#FDFCFA', padding: '120px 40px' }}
     >
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         {/* Header */}
         <motion.div
+          className="comparison-heading"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -46,6 +48,7 @@ export function Comparison() {
 
         {/* Table */}
         <motion.div
+          className="comparison-table"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -59,7 +62,7 @@ export function Comparison() {
           }}
         >
           {/* Table header */}
-          <div style={{
+          <div className="comparison-table__header" style={{
             display: 'grid',
             gridTemplateColumns: '2fr repeat(4, 1fr)',
             borderBottom: '1px solid #E5E3DF',
@@ -68,6 +71,7 @@ export function Comparison() {
             {columns.map(col => (
               <div
                 key={col.key}
+                className="comparison-table__cell comparison-table__column-heading"
                 style={{
                   padding: '16px 12px',
                   textAlign: 'center',
@@ -75,7 +79,7 @@ export function Comparison() {
                   borderLeft: '1px solid #E5E3DF',
                 }}
               >
-                <span style={{
+                <span className="comparison-table__column-label" style={{
                   fontFamily: 'DM Sans, sans-serif', fontWeight: 700, fontSize: '13px',
                   color: col.highlight ? '#E87722' : '#6B7280',
                 }}>
@@ -89,6 +93,7 @@ export function Comparison() {
           {features.map((row, i) => (
             <div
               key={row.name}
+              className={`comparison-table__row${row.highlight ? ' comparison-table__row--highlight' : ''}`}
               style={{
                 display: 'grid',
                 gridTemplateColumns: '2fr repeat(4, 1fr)',
@@ -98,8 +103,8 @@ export function Comparison() {
                 transition: 'background 0.15s',
               }}
             >
-              <div style={{ padding: '18px 24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{
+              <div className="comparison-table__feature" style={{ padding: '18px 24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className="comparison-table__feature-label" style={{
                   fontFamily: 'DM Sans, sans-serif', fontSize: '15px',
                   color: '#1A1A1A', fontWeight: row.highlight ? 600 : 400,
                 }}>
@@ -131,6 +136,7 @@ export function Comparison() {
               {columns.map(col => (
                 <div
                   key={col.key}
+                  className="comparison-table__cell comparison-table__icon-cell"
                   style={{
                     padding: '18px 12px',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
