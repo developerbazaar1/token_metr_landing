@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { BarChart3, Check, Coins, Copy, Gauge, Loader2, Percent, Send, Sparkles } from 'lucide-react';
+import { BarChart3, Check, Coins, Copy, Gauge, Loader2, Percent, Send, Sparkles, Lock } from 'lucide-react';
+import { CHROME_WEBSTORE_URL } from '../links';
 
 type PlatformKey = 'chatgpt' | 'claude' | 'gemini' | 'perplexity';
 
@@ -119,6 +120,8 @@ export function PromptPlatform() {
   const [errorMessage, setErrorMessage] = useState('');
   const [result, setResult] = useState<CompressionResponse | null>(null);
   const [copied, setCopied] = useState(false);
+  const [showLimitModal, setShowLimitModal] = useState(false);
+  const [isLimitReached, setIsLimitReached] = useState(false);
 
   const currentPlatformLabel = platformConfig.find(item => item.value === platform)?.label ?? 'Platform';
   const originalTokenEstimate = estimateTokens(prompt);
@@ -205,7 +208,12 @@ export function PromptPlatform() {
       setStatus('done');
     } catch (error) {
       setStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong while optimizing prompt.');
+      const msg = error instanceof Error ? error.message : 'Something went wrong while optimizing prompt.';
+      setErrorMessage(msg);
+      if (msg.toLowerCase().includes('limit') || msg.toLowerCase().includes('too many requests') || msg.toLowerCase().includes('429')) {
+        setIsLimitReached(true);
+        setShowLimitModal(true);
+      }
     }
   };
 
@@ -441,7 +449,8 @@ export function PromptPlatform() {
                     setResult(null);
                   }
                 }}
-                placeholder="Paste your prompt here..."
+                disabled={isLimitReached}
+                placeholder={isLimitReached ? "Guest limit reached. Please log in or add the Chrome Extension to continue." : "Paste your prompt here..."}
                 style={{
                   width: '100%',
                   minHeight: '340px',
@@ -539,14 +548,17 @@ export function PromptPlatform() {
               <select
                 value={platform}
                 onChange={event => handlePlatformChange(event.target.value as PlatformKey)}
+                disabled={isLimitReached}
                 style={{
                   width: '100%',
                   padding: '12px 14px',
                   borderRadius: '10px',
                   border: '1px solid #E5E3DF',
-                  background: '#FFFFFF',
+                  background: isLimitReached ? '#F3F4F6' : '#FFFFFF',
+                  color: isLimitReached ? '#9CA3AF' : '#1F2937',
                   fontFamily: 'DM Sans, sans-serif',
                   fontSize: '15px',
+                  cursor: isLimitReached ? 'not-allowed' : 'default',
                 }}
               >
                 {platformConfig.map(option => (
@@ -564,14 +576,17 @@ export function PromptPlatform() {
               <select
                 value={model}
                 onChange={event => setModel(event.target.value)}
+                disabled={isLimitReached}
                 style={{
                   width: '100%',
                   padding: '12px 14px',
                   borderRadius: '10px',
                   border: '1px solid #E5E3DF',
-                  background: '#FFFFFF',
+                  background: isLimitReached ? '#F3F4F6' : '#FFFFFF',
+                  color: isLimitReached ? '#9CA3AF' : '#1F2937',
                   fontFamily: 'DM Sans, sans-serif',
                   fontSize: '15px',
+                  cursor: isLimitReached ? 'not-allowed' : 'default',
                 }}
               >
                 {modelsForSelectedPlatform.map(modelOption => (
@@ -585,9 +600,9 @@ export function PromptPlatform() {
             <button
               type="button"
               onClick={handleOptimize}
-              disabled={status === 'loading' || !prompt.trim()}
+              disabled={status === 'loading' || !prompt.trim() || isLimitReached}
               style={{
-                background: !prompt.trim() || status === 'loading' ? '#D1D5DB' : 'linear-gradient(135deg, #E87722, #F5A53A)',
+                background: !prompt.trim() || status === 'loading' || isLimitReached ? '#D1D5DB' : 'linear-gradient(135deg, #E87722, #F5A53A)',
                 color: '#FFFFFF',
                 border: 'none',
                 borderRadius: '10px',
@@ -595,7 +610,7 @@ export function PromptPlatform() {
                 fontFamily: 'DM Sans, sans-serif',
                 fontSize: '15px',
                 fontWeight: 700,
-                cursor: !prompt.trim() || status === 'loading' ? 'not-allowed' : 'pointer',
+                cursor: !prompt.trim() || status === 'loading' || isLimitReached ? 'not-allowed' : 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -615,12 +630,141 @@ export function PromptPlatform() {
             </button>
           </div>
 
-          {status === 'error' && (
+          {status === 'error' && !isLimitReached && (
             <p style={{ margin: '14px 0 0 0', fontFamily: 'DM Sans, sans-serif', color: '#DC2626', fontSize: '14px' }}>
               {errorMessage}
             </p>
           )}
 
+          {/* Centered Limit Warning Dialog */}
+          {showLimitModal && (
+            <div style={{
+              position: 'fixed',
+              inset: 0,
+              backgroundColor: 'rgba(26, 26, 26, 0.48)',
+              backdropFilter: 'blur(6px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+              padding: '20px',
+            }}>
+              <div style={{
+                background: '#FFFFFF',
+                border: '1px solid rgba(232,119,34,0.2)',
+                borderRadius: '20px',
+                maxWidth: '480px',
+                width: '100%',
+                padding: '36px 32px',
+                boxShadow: '0 24px 64px rgba(232,119,34,0.16), 0 8px 24px rgba(0,0,0,0.08)',
+                textAlign: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+              }}>
+                {/* Top decorative gradient line */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0, left: 0, right: 0,
+                  height: '5px',
+                  background: 'linear-gradient(90deg, #E87722 0%, #F5A53A 100%)',
+                }} />
+
+                {/* Lock Icon */}
+                <div style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  background: '#FFF7EE',
+                  border: '1px solid #FED7AA',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#E87722',
+                  marginBottom: '20px',
+                }}>
+                  <Lock size={28} />
+                </div>
+
+                <h3 style={{
+                  fontFamily: 'Sora, sans-serif',
+                  fontWeight: 700,
+                  fontSize: '22px',
+                  color: '#1A1A1A',
+                  margin: '0 0 12px 0',
+                }}>
+                  Guest Limit Reached
+                </h3>
+
+                <p style={{
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontSize: '15px',
+                  lineHeight: 1.6,
+                  color: '#5A6472',
+                  margin: '0 0 28px 0',
+                }}>
+                  {errorMessage || "You have reached the guest limit of free compressions. Please log in or add our free Chrome Extension to get unlimited access."}
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => window.open(CHROME_WEBSTORE_URL, '_blank', 'noopener,noreferrer')}
+                  style={{
+                    width: '100%',
+                    background: 'linear-gradient(135deg, #E87722, #F5A53A)',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '14px',
+                    fontFamily: 'DM Sans, sans-serif',
+                    fontSize: '15px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    boxShadow: '0 8px 24px rgba(232,119,34,0.25)',
+                    transition: 'all 0.2s',
+                    marginBottom: '12px',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(232,119,34,0.35)';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(232,119,34,0.25)';
+                    e.currentTarget.style.transform = 'none';
+                  }}
+                >
+                  Add to Chrome - Free
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowLimitModal(false)}
+                  style={{
+                    width: '100%',
+                    background: '#FFFFFF',
+                    color: '#6B7280',
+                    border: '1px solid #E5E3DF',
+                    borderRadius: '10px',
+                    padding: '12px',
+                    fontFamily: 'DM Sans, sans-serif',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = '#F9FAFB';
+                    e.currentTarget.style.color = '#1A1A1A';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = '#FFFFFF';
+                    e.currentTarget.style.color = '#6B7280';
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
 
         </div>
       </div>
