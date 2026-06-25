@@ -182,7 +182,7 @@ export function PromptPlatform() {
 
     try {
       const signature = getOrCreateDeviceSignature();
-      const response = await fetch(`${API_BASE_URL}/api/compress`, {
+      const response = await fetch(`${API_BASE_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -460,15 +460,57 @@ export function PromptPlatform() {
             </div>
 
             <div style={{ border: '1px solid #86EFAC', borderRadius: '14px', overflow: 'hidden', background: '#F0FDF4' }}>
-              <div style={{ padding: '14px 16px', borderBottom: '1px solid #BBF7D0', display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+              <div style={{ padding: '10px 16px', borderBottom: '1px solid #BBF7D0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', minHeight: '48px' }}>
                 <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '13px', fontWeight: 800, color: '#166534', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   <Sparkles size={15} /> Optimized prompt
                 </span>
-                {result?.tokenUsage && (
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#16A34A', fontWeight: 700 }}>
-                    {compressedTokenCount} tokens
-                  </span>
-                )}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  {result?.tokenUsage && (
+                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#16A34A', fontWeight: 700 }}>
+                      {compressedTokenCount} tokens
+                    </span>
+                  )}
+                  {optimizedText && (
+                    <button
+                      type="button"
+                      onClick={handleCopyCompressed}
+                      style={{
+                        border: '1px solid #86EFAC',
+                        background: '#FFFFFF',
+                        color: '#166534',
+                        borderRadius: '6px',
+                        padding: '4px 10px',
+                        cursor: 'pointer',
+                        fontFamily: 'DM Sans, sans-serif',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px',
+                        transition: 'all 0.15s ease',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.background = '#E8F5E9';
+                        e.currentTarget.style.borderColor = '#66BB6A';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.background = '#FFFFFF';
+                        e.currentTarget.style.borderColor = '#86EFAC';
+                      }}
+                    >
+                      {copied ? (
+                        <>
+                          <Check size={13} /> Copied
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={13} /> Copy
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div
@@ -579,41 +621,7 @@ export function PromptPlatform() {
             </p>
           )}
 
-          {status === 'done' && result?.compressed && result.tokenUsage && (
-            <div style={{ marginTop: '18px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr) auto', gap: '10px', alignItems: 'stretch' }} className="prompt-result-row">
-              {[
-                `${result.tokenUsage.originalTokens} -> ${compressedTokenCount}`,
-                `${reductionPercent}% reduced`,
-                `${result.tokenUsage.savedTokens} input tokens saved`,
-                `${outputTokensSaved} output tokens saved`,
-              ].map(item => (
-                <div key={item} style={{ background: '#FFF7EE', border: '1px solid #FED7AA', borderRadius: '10px', padding: '11px 12px', fontFamily: 'DM Sans, sans-serif', fontSize: '13px', fontWeight: 800, color: '#C2410C', textAlign: 'center' }}>
-                  {item}
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={handleCopyCompressed}
-                style={{
-                  border: '1px solid #D1D5DB',
-                  background: '#FFFFFF',
-                  color: '#374151',
-                  borderRadius: '10px',
-                  padding: '11px 14px',
-                  cursor: 'pointer',
-                  fontFamily: 'DM Sans, sans-serif',
-                  fontSize: '13px',
-                  fontWeight: 800,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '6px',
-                }}
-              >
-                {copied ? <><Check size={14} /> Copied</> : <><Copy size={14} /> Copy</>}
-              </button>
-            </div>
-          )}
+
         </div>
       </div>
 
