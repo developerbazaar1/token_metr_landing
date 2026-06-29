@@ -162,7 +162,7 @@ export function Hero() {
         {/* CTAs */}
         <motion.div
           variants={fadeUp}
-          style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center', marginBottom: '56px' }}
+          style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center', marginBottom: '32px' }}
         >
           <button
             onClick={() => window.open(CHROME_WEBSTORE_URL, '_blank', 'noopener,noreferrer')}
@@ -205,6 +205,29 @@ export function Hero() {
           >
             See how it works for teams <ArrowRight size={16} />
           </button>
+        </motion.div>
+
+        {/* Product Hunt Badge */}
+        <motion.div
+          variants={fadeUp}
+          style={{ marginBottom: '40px' }}
+        >
+          <a
+            href="https://www.producthunt.com/products/tokenmetr?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-tokenmetr"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'inline-block', transition: 'transform 0.2s ease' }}
+            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'none'}
+          >
+            <img
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1183598&theme=light&t=1782724007642"
+              alt="TokenMetr - Cut your AI costs by 63% — before you hit send | Product Hunt"
+              width={250}
+              height={54}
+              style={{ display: 'block', border: 'none' }}
+            />
+          </a>
         </motion.div>
 
         {/* Demo Video */}
